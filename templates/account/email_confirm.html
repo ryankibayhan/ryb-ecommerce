@@ -1,0 +1,31 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Email Adresini Doğrula" %}{% endblock %}
+
+
+{% block content %}
+<h1>{% trans "Email Adresini Doğrula" %}</h1>
+
+{% if confirmation %}
+
+{% user_display confirmation.email_address.user as user_display %}
+
+<p>{% blocktrans with confirmation.email_address.email as email %}Lütfen <a href="mailto:{{ email }}">{{ email }}</a> adresini doğrulayın {{ user_display }}.{% endblocktrans %}</p>
+
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+{% csrf_token %}
+    <button type="submit">{% trans 'Confirm' %}</button>
+</form>
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+
+<p>{% blocktrans %}Bu Email doğrulama kodu geçersiz.Lütfen <a href="{{ email_url }}">adresine tekrar doğrulama kodu yenileyin</a>.{% endblocktrans %}</p>
+
+{% endif %}
+
+{% endblock %}
