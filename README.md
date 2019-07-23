@@ -51,3 +51,7 @@ Running Server
 
 python manage.py runserver
 ```
+
+## Social Media
+
+- [Twitter](https://twitter.com/RYbayhan)
